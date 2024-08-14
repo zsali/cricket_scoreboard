@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prime BPO Scoreboard</title>
+    <!-- icon image  -->
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="./assets/images/favicon-logo.png"
+    />
+
+    <!-- fonts  -->
+    <link rel="stylesheet" href="./assets/css/fonts.css" />
+
+    <!-- bootstrap css  -->
+    <link rel="stylesheet" href="./assets/libs/bootstrap/css/bootstrap.css" />
+
+    <!-- custom css  -->
+    <link rel="stylesheet" href="./assets/css/style.css" />
+
+    <!-- font awesome cdn  -->
+
+    <link
+      rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css"
+    />
+  </head>
+
+  <body>
+    <!-- score board code start  -->
+    <div class="container scoreboard">
+      <div class="d-flex justify-content-between align-items-center flex-wrap">
+        <div class="icons d-flex align-items-center">
+          <a href="index.html">
+            <img
+              src="./assets/images/cricket-bat.png"
+              title="Batting Record"
+              alt="Bat Icon"
+            />
+          </a>
+          <a href="bowling.html">
+            <img
+              src="./assets/images/ball.png"
+              title="Bowling Record"
+              alt="Ball Icon"
+            />
+          </a>
+          <a href="scoreboard.html">
+            <img
+              src="./assets/images/score.png"
+              title="Scoreboard Record"
+              alt="Ball Icon"
+            />
+          </a>
+          <a href="pointstable.html">
+            <img
+              src="./assets/images/pointstable.png"
+              title="PointsTable Record"
+              alt="Ball Icon"
+            />
+          </a>
+        </div>
+        <div>
+          <a href="./scoreShow.html">
+            <i
+              class="fa-solid fa-arrow-up-left-from-circle"
+              title="Back To ScoreCard"
+            ></i>
+          </a>
+        </div>
+      </div>
+      <div class="team-toggle">
+        <input type="radio" id="team-a" name="team" value="team-a" checked />
+        <label for="team-a">Team A</label>
+
+        <input type="radio" id="team-b" name="team" value="team-b" />
+        <label for="team-b">Team B</label>
+      </div>
+      <div class="header">
+        <div class="logos d-flex align-items-center">
+          <img id="team_logo" alt="Team Logo" />
+
+          <div class="team-name" id="team-name">Team Name</div>
+        </div>
+        <div class="logos">
+          <img
+            src="./assets/images/prime_bpo.png"
+            class="companyLogo"
+            alt="Company Logo"
+          />
+        </div>
+      </div>
+      <p class="text-muted fw-bold fs-6">Bowling</p>
+
+      <div class="bowlers-list table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Bowler</th>
+              <th>Overs</th>
+              <th>Maidens</th>
+              <th>Runs</th>
+              <th>Wickets</th>
+            </tr>
+          </thead>
+          <tbody id="bowlers"></tbody>
+        </table>
+      </div>
+      <div class="footer">
+        <div class="row text-center">
+          <div class="col-md-4 fw-bold">Overs: <span id="overs">0</span></div>
+          <div class="col-md-4 fw-bold">Extras: <span id="extras">0</span></div>
+          <div class="col-md-4 fw-bold">
+            Total: <span id="total">0</span>/<span id="wickets">0</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- score board code end  -->
+
+    <!-- jquery  -->
+    <script src="./assets/libs/jquery/jquery.min.js"></script>
+
+    <!-- bootstrap js  -->
+    <script src="./assets/libs/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- custom js -->
+    <script src="./assets/js/bowling.js"></script>
+  </body>
+</html>

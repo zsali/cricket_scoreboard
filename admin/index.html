@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prime BPO Scoreboard</title>
+    <!-- icon image  -->
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="./assets/images/favicon-logo.png"
+    />
+
+    <!-- fonts  -->
+    <link rel="stylesheet" href="../assets/css/fonts.css" />
+
+    <!-- bootstrap css  -->
+    <link rel="stylesheet" href="../assets/libs/bootstrap/css/bootstrap.css" />
+
+    <!-- custom css  -->
+    <link rel="stylesheet" href="../assets/css/admin.css" />
+
+    <!-- font awesome cdn  -->
+    <link
+      rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css"
+    />
+  </head>
+  <body>
+    <!-- score board code start  -->
+    <div class="container adminStepForm">
+      <div class="header">
+        <div class="logos">
+          <img
+            src="../assets/images/prime_bpo.png"
+            class="m-auto"
+            alt="Team Logo"
+          />
+        </div>
+      </div>
+
+      <div class="stepFrom my-3">
+        <form id="multiStepForm">
+          <!-- Step 1 -->
+          <div class="step active" id="step1">
+            <div class="stepPoints text-center">
+              <div class="mx-3">
+                <label for="option1" class="form-label fw-bold"
+                  >Select First Team:</label
+                >
+                <select
+                  id="option1"
+                  name="option1"
+                  class="form-select"
+                  required
+                >
+                  <option value="">--Select--</option>
+                  <option value="prime1_thunder_strikes">
+                    Prime1 Thunder Strikers
+                  </option>
+                  <option value="prime2_power_hitters">
+                    Prime2 Power Hitters
+                  </option>
+                  <option value="prime3_royal_warriors">
+                    Prime3 Royal Warriors
+                  </option>
+                  <option value="mindstorm_gladiators">
+                    Mindstorm Gladiators
+                  </option>
+                </select>
+                <span id="errorOption1" class="error"
+                  >Please select an option.</span
+                >
+              </div>
+
+              <p class="mx-3 fs-4 fst-italic text-danger fw-bold">VS</p>
+              <div class="mx-3">
+                <label for="option2" class="form-label fw-bold"
+                  >Select Second Team:</label
+                >
+                <select
+                  id="option2"
+                  name="option2"
+                  class="form-select"
+                  required
+                >
+                  <option value="">--Select--</option>
+                  <option value="prime1_thunder_strikes">
+                    Prime1 Thunder Strikers
+                  </option>
+                  <option value="prime2_power_hitters">
+                    Prime2 Power Hitters
+                  </option>
+                  <option value="prime3_royal_warriors">
+                    Prime3 Royal Warriors
+                  </option>
+                  <option value="mindstorm_gladiators">
+                    Mindstorm Gladiators
+                  </option>
+                </select>
+                <span id="errorOption2" class="error"
+                  >Please select an option.</span
+                >
+              </div>
+            </div>
+            <div class="d-flex justify-content-center my-5">
+              <button
+                type="button"
+                class="btn btn-primary px-5"
+                onclick="nextStep()"
+              >
+                Next
+              </button>
+            </div>
+          </div>
+          <!-- Step 2 -->
+          <div class="step" id="step2">
+            <div class="text-center">
+              <p class="fs-4 mb-4 fw-bold">Which team won the toss?</p>
+              <div class="d-flex justify-content-evenly flex-wrap text-center">
+                <div>
+                  <input
+                    type="radio"
+                    id="team1"
+                    name="tossWinner"
+                    class="form-check-input team1radio"
+                    required
+                  />
+                  <label
+                    for="team1"
+                    class="form-label fw-bold text-primary fs-5 team1label"
+                  ></label>
+                </div>
+                <p class="mx-3 fs-4 fst-italic text-danger fw-bold">VS</p>
+                <div>
+                  <input
+                    type="radio"
+                    id="team2"
+                    name="tossWinner"
+                    class="form-check-input team2radio"
+                  />
+                  <label
+                    for="team2"
+                    class="form-label fw-bold text-primary fs-5 team2label"
+                  ></label>
+                </div>
+              </div>
+              <span id="errorTossWinner" class="error"
+                >Please select a team.</span
+              >
+            </div>
+            <div class="d-flex justify-content-center gap-4 my-5">
+              <button
+                type="button"
+                class="btn btn-dark px-5"
+                onclick="prevStep()"
+              >
+                Previous
+              </button>
+              <button
+                type="button"
+                class="btn btn-primary px-5"
+                onclick="nextStep()"
+              >
+                Next
+              </button>
+            </div>
+          </div>
+          <!-- Step 3 -->
+          <div class="step" id="step3">
+            <div class="text-center">
+              <p class="fs-4 mb-4 fw-bold">Which team is going to bat first?</p>
+              <div class="d-flex justify-content-evenly flex-wrap text-center">
+                <div>
+                  <input
+                    type="radio"
+                    id="batTeam1"
+                    name="battingFirst"
+                    value="Team1"
+                    class="form-check-input team1radio"
+                    required
+                  />
+                  <label
+                    class="form-label fw-bold text-primary fs-5 team1label"
+                    for="batTeam1"
+                    >Team 1</label
+                  >
+                </div>
+                <p class="mx-3 fs-4 fst-italic text-danger fw-bold">VS</p>
+                <div>
+                  <input
+                    type="radio"
+                    id="batTeam2"
+                    name="battingFirst"
+                    class="form-check-input team2radio"
+                    value="Team2"
+                  />
+                  <label
+                    class="form-label fw-bold text-primary fs-5 team2label"
+                    for="batTeam2"
+                    >Team 2</label
+                  >
+                </div>
+              </div>
+
+              <span id="errorBattingFirst" class="error"
+                >Please select a team.</span
+              >
+            </div>
+
+            <div class="d-flex justify-content-center gap-4 my-5">
+              <button
+                type="button"
+                class="btn btn-dark px-5"
+                onclick="prevStep()"
+              >
+                Previous
+              </button>
+              <button
+                type="button"
+                class="btn btn-primary px-5"
+                onclick="submitForm()"
+              >
+                Submit
+              </button>
+            </div>
+          </div>
+
+          <!-- step form end  -->
+        </form>
+      </div>
+
+      <div class="footer">
+        <div class="text-center">
+          Powered by
+          <a href="https://www.primebpo.com/" target="_blank" class="fw-bold"
+            >Prime BPO</a
+          >
+        </div>
+      </div>
+    </div>
+    <!-- score board code end  -->
+
+    <!-- jquery  -->
+    <script src="../assets/libs/jquery/jquery.min.js"></script>
+
+    <!-- bootstrap js  -->
+    <script src="../assets/libs/bootstrap/js/bootstrap.min.js"></script>
+
+    <script src="../assets/js/admin.js"></script>
+  </body>
+</html>

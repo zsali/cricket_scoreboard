@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prime BPO Scoreboard</title>
+    <!-- icon image  -->
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="./assets/images/favicon-logo.png"
+    />
+
+    <!-- fonts  -->
+    <link rel="stylesheet" href="./assets/css/fonts.css" />
+
+    <!-- bootstrap css  -->
+    <link rel="stylesheet" href="./assets/libs/bootstrap/css/bootstrap.css" />
+
+    <!-- custom css  -->
+    <link rel="stylesheet" href="./assets/css/style.css" />
+
+    <!-- font awesome cdn  -->
+
+    <link
+      rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css"
+    />
+  </head>
+
+  <body>
+    <!-- score board code start  -->
+    <div class="container scoreboard">
+      <div class="d-flex justify-content-between align-items-center flex-wrap">
+        <div class="icons d-flex align-items-center">
+          <a href="index.html">
+            <img
+              src="./assets/images/cricket-bat.png"
+              title="Batting Record"
+              alt="Bat Icon"
+            />
+          </a>
+          <a href="bowling.html">
+            <img
+              src="./assets/images/ball.png"
+              title="Bowling Record"
+              alt="Ball Icon"
+            />
+          </a>
+          <a href="scoreboard.html">
+            <img
+              src="./assets/images/score.png"
+              title="Scoreboard Record"
+              alt="Ball Icon"
+            />
+          </a>
+          <a href="pointstable.html">
+            <img
+              src="./assets/images/pointstable.png"
+              title="PointsTable Record"
+              alt="Ball Icon"
+            />
+          </a>
+        </div>
+        <div>
+          <a href="./scoreShow.html">
+            <i
+              class="fa-solid fa-arrow-up-left-from-circle"
+              title="Back To ScoreCard"
+            ></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="header">
+        <div class="logos">
+          <p class="text-muted fw-bold fs-6">ScoreBoard</p>
+        </div>
+        <div class="logos">
+          <img
+            src="./assets/images/prime_bpo.png"
+            class="companyLogo"
+            alt="Company Logo"
+          />
+        </div>
+      </div>
+
+      <h1 class="text-center fs-2 text-primary">Match Summary</h1>
+
+      <div class="d-flex justify-content-center align-items-center mb-4">
+        <p>Prime1 Thunder Strikers</p>
+        <span class="mx-2 text-danger fw-bold fs-4">Vs</span>
+        <p>Prime2 Power Hitters</p>
+      </div>
+
+      <div class="team-section">
+        <div class="team">
+          <div class="d-flex align-items-center">
+            <img src="./assets/images/multansultan.png" alt="Team 1 Logo" />
+          </div>
+          <div class="team-name">Prime1 Thunder Strikers</div>
+          <div class="d-flex justify-content-between">
+            <span class="fw-bold"> Overs:18.2</span>
+            <span class="team1-total">150/10</span>
+          </div>
+          <div class="performance">
+            <h5>Top Performers</h5>
+            <div class="d-flex justify-content-between gap-5">
+              <div>
+                <p class="text-danger fw-bold">Karar Haider - 50(30)</p>
+                <p class="text-danger fw-bold">Hammad - 50(30)</p>
+              </div>
+              <div>
+                <p class="text-success fw-bold">Player 2 - 3/20</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="team">
+          <div class="d-flex align-items-center">
+            <img src="./assets/images/quetta-gladitor.png" alt="Team 2 Logo" />
+            <span class="toss-winner">
+              <img src="./assets/images/coin.png" alt="Coin Icon" />
+            </span>
+          </div>
+          <div class="team-name">Prime2 Power Hitters</div>
+          <div class="d-flex justify-content-between">
+            <span class="fw-bold"> Overs:20</span>
+            <span class="team1-total">145/8</span>
+          </div>
+
+          <div class="performance">
+            <h5>Top Performers</h5>
+            <div class="d-flex justify-content-between gap-5">
+              <div>
+                <p class="text-danger fw-bold">Player 3 - 40(35)</p>
+                <p class="text-danger fw-bold">Player 1 - 50(30)</p>
+              </div>
+              <div>
+                <p class="text-success fw-bold">Player 4 - 4/25</p>
+                <p class="text-success fw-bold">Player 2 - 3/20</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer bg-primary text-center rounded-5">
+        <p class="text-white py-2">Prime1 Thunder Strikers Win by 5 runs</p>
+      </div>
+    </div>
+    <!-- score board code end  -->
+
+    <!-- jquery  -->
+    <script src="./assets/libs/jquery/jquery.min.js"></script>
+
+    <!-- bootstrap js  -->
+    <script src="./assets/libs/bootstrap/js/bootstrap.min.js"></script>
+  </body>
+</html>

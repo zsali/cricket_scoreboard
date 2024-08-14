@@ -1,0 +1,187 @@
+// score card
+let batsman1 = { name: "", score: 0, balls: 0, fours: 0, sixes: 0 };
+let batsman2 = { name: "", score: 0, balls: 0, fours: 0, sixes: 0 };
+let bowler = { name: "", maiden: 0, wickets: 0, overs: 0, balls: 0, runs: 0 };
+let total = { runs: 0, wickets: 0, balls: 0, extras: 0 };
+let currentBatsman = batsman1;
+let ballsThisOver = 0; // Track balls bowled in current over
+let newOver = false; // Flag to check if it's a new over
+
+function updateScore(run) {
+  if (run === "wide" || run === "no-ball") {
+    total.extras += 1;
+    total.runs += 1;
+    bowler.runs += 1; // Increment bowler runs for wides and no-balls
+  } else if (run === "wicket") {
+    bowler.wickets += 1;
+    total.wickets += 1;
+    handleWicket();
+  } else {
+    currentBatsman.score += run;
+    currentBatsman.balls += 1;
+    total.runs += run;
+    bowler.runs += run; // Increment bowler runs for normal runs
+    if (run === 4) currentBatsman.fours += 1;
+    if (run === 6) currentBatsman.sixes += 1;
+    // Removed the line that switches the strike on odd runs
+  }
+
+  if (run !== "wide" && run !== "no-ball") {
+    ballsThisOver += 1;
+    bowler.balls += 1;
+    total.balls += 1;
+
+    if (ballsThisOver === 6) {
+      if (currentBatsman.score === 0) {
+        bowler.maiden += 1; // Increment maiden if all balls in the over are dots
+      }
+      bowler.overs += 1; // Increment overs bowled by the bowler
+      ballsThisOver = 0; // Reset balls bowled counter for new over
+      switchStrike(); // Ensure the strike is switched at the end of the over
+      resetBowlerStats(); // Reset bowler stats for new over
+      newOver = true; // Set flag for new over
+
+      // Prompt for bowler change
+      alert("Please change the bowler.");
+      document.getElementById("bowler_info").value = "";
+      checkSelections();
+      disableButtons();
+    } else if (run % 2 === 1) {
+      switchStrike(); // Switch strike on odd runs
+    }
+  }
+
+  updateDisplay();
+  if (newOver) newOver = false; // Reset flag after processing new over
+}
+
+function switchStrike() {
+  currentBatsman = currentBatsman === batsman1 ? batsman2 : batsman1;
+  document.querySelector("#batsman1-info .form-label").textContent =
+    currentBatsman === batsman1 ? "(on strike)" : "";
+  document.querySelector("#batsman2-info .form-label").textContent =
+    currentBatsman === batsman2 ? "(on strike)" : "";
+}
+
+function handleWicket() {
+  if (total.wickets < 10) {
+    // Logic to handle new batsman selection can be added here
+    currentBatsman = currentBatsman === batsman1 ? batsman2 : batsman1;
+    currentBatsman.score = 0;
+    currentBatsman.balls = 0;
+    currentBatsman.fours = 0;
+    currentBatsman.sixes = 0;
+  } else {
+    alert("All out!");
+    // Reset or end the game logic can be added here
+  }
+}
+
+function resetBowlerStats() {
+  // Reset bowler's balls count for a new over
+  bowler.balls = 0;
+}
+
+function updateDisplay() {
+  document.getElementById("total_score").textContent = total.runs;
+  document.getElementById("wicket").textContent = total.wickets;
+  document.getElementById("overShow").textContent =
+    Math.floor(total.balls / 6) + "." + (total.balls % 6);
+  document.getElementById("currentRunRate").textContent = (
+    total.runs /
+    (total.balls / 6)
+  ).toFixed(2);
+
+  document.getElementById("batsman1-score").textContent = batsman1.score;
+  document.getElementById("batsman1-balls").textContent = batsman1.balls;
+  document.getElementById("batsman1-4s").textContent = batsman1.fours;
+  document.getElementById("batsman1-6s").textContent = batsman1.sixes;
+  document.getElementById("batsman1-sr").textContent = (
+    batsman1.balls > 0 ? (batsman1.score / batsman1.balls) * 100 : 0
+  ).toFixed(2);
+
+  document.getElementById("batsman2-score").textContent = batsman2.score;
+  document.getElementById("batsman2-balls").textContent = batsman2.balls;
+  document.getElementById("batsman2-4s").textContent = batsman2.fours;
+  document.getElementById("batsman2-6s").textContent = batsman2.sixes;
+  document.getElementById("batsman2-sr").textContent = (
+    batsman2.balls > 0 ? (batsman2.score / batsman2.balls) * 100 : 0
+  ).toFixed(2);
+
+  document.getElementById("bowler-overs").textContent = bowler.overs;
+  document.getElementById("bowler-maiden").textContent = bowler.maiden; // Update maiden overs
+  document.getElementById("bowler-runs").textContent = bowler.runs; // Update runs conceded
+  document.getElementById("bowler-wickets").textContent = bowler.wickets;
+  document.getElementById("extras").textContent = total.extras;
+}
+
+function sendUpdateToBackend() {
+  fetch("/api/update-score", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      batsman1,
+      batsman2,
+      bowler,
+      total,
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => console.log(data))
+    .catch((error) => console.error("Error:", error));
+}
+
+function checkSelections() {
+  const firstBatsman = document.getElementById("first_batsman").value;
+  const secondBatsman = document.getElementById("second_batsman").value;
+  const bowlerInfo = document.getElementById("bowler_info").value;
+
+  const secondBatsmanOptions =
+    document.getElementById("second_batsman").options;
+  for (let i = 0; i < secondBatsmanOptions.length; i++) {
+    if (secondBatsmanOptions[i].value === firstBatsman) {
+      secondBatsmanOptions[i].disabled = true;
+    } else {
+      secondBatsmanOptions[i].disabled = false;
+    }
+  }
+
+  const buttons = document.querySelectorAll("button.btn-primary");
+  if (firstBatsman && secondBatsman && bowlerInfo) {
+    buttons.forEach((button) => (button.disabled = false));
+  } else {
+    buttons.forEach((button) => (button.disabled = true));
+  }
+}
+
+function disableButtons() {
+  const buttons = document.querySelectorAll("button.btn-primary");
+  buttons.forEach((button) => (button.disabled = true));
+}
+
+// Initialize select elements
+document
+  .getElementById("first_batsman")
+  .addEventListener("change", function () {
+    batsman1.name = this.value;
+    checkSelections();
+    updateDisplay();
+  });
+
+document
+  .getElementById("second_batsman")
+  .addEventListener("change", function () {
+    batsman2.name = this.value;
+    checkSelections();
+    updateDisplay();
+  });
+
+document.getElementById("bowler_info").addEventListener("change", function () {
+  bowler.name = this.value;
+  checkSelections();
+  updateDisplay();
+});
+
+// Initial display update
+updateDisplay();
+checkSelections();

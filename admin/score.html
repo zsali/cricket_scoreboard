@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prime BPO Scoreboard</title>
+    <!-- icon image  -->
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="../assets/images/prime_bpo.png"
+    />
+
+    <!-- fonts  -->
+    <link rel="stylesheet" href="../assets/css/fonts.css" />
+
+    <!-- bootstrap css  -->
+    <link rel="stylesheet" href="../assets/libs/bootstrap/css/bootstrap.css" />
+
+    <!-- custom css  -->
+    <link rel="stylesheet" href="../assets/css/admin.css" />
+
+    <!-- font awesome cdn  -->
+    <link
+      rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css"
+    />
+  </head>
+  <body>
+    <!-- score board code start  -->
+    <div class="container adminStepForm">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <p class="text-primary fw-bold fs-3">
+            Prime1 Thunder Strikers
+            <span class="text-danger fs-1">vs</span> Mindstorm Gladiators
+          </p>
+          <p class="fs-6">
+            Prime1 Thunder Strikers won the Toss and elected to bat first
+          </p>
+        </div>
+        <div class="logos">
+          <img
+            src="../assets/images/prime_bpo.png"
+            class="m-auto"
+            alt="Team Logo"
+          />
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="form-group my-4 w-25">
+          <label for="teamSelect"> Which Team Is going to Bat:</label>
+          <select
+            name="teamSelect"
+            class="form-select my-2"
+            id="teamSelect"
+            disabled
+          >
+            <option value="prime1_thunder_strikes">
+              Prime1 Thunder Strikers
+            </option>
+            <option value="prime2_power_hitters">Prime2 Power Hitters</option>
+            <!-- <option value="prime3_royal_warriors">Prime3 Royal Warriors</option> -->
+            <!-- <option value="mindstorm_gladiators">Mindstorm Gladiators</option> -->
+          </select>
+        </div>
+        <div>
+          <div class="btn btn-primary" type="button" onclick="switchStrike()">
+            Strike Change
+          </div>
+          <div class="btn btn-danger" type="button" onclick="reset()">
+            Reset Everything
+          </div>
+          <div class="btn btn-success" type="button" onclick="matchIsEnd()">
+            Match End
+          </div>
+        </div>
+      </div>
+
+      <!-- runs to win  -->
+      <p class="text-danger fw-bold" style="display: none" id="targetToChase" >
+        Target: <span ></span> 102
+      </p>
+      <!-- main body start  -->
+      <div class="my-4">
+        <div
+          class="d-flex justify-content-between align-items-center my-3 fs-4"
+        >
+          <div>
+            <span class="text-primary fw-bold" id="selectedTeamName"></span>
+            <span id="total_score"></span>/<span id="wicket"></span>
+          </div>
+          <div>
+            <span class="text-primary fw-bold">Over:</span>
+            <span id="overShow"></span>
+            <span class="text-primary fw-bold">Current RR:</span>
+            <span id="currentRunRate"></span>
+          </div>
+        </div>
+
+        <div class="my-3">
+          <p>Batsman Info</p>
+          <div class="row my-2 text-center" id="batsman1-info">
+            <div class="col-md-2">
+              <div class="form-group">
+                <label for="" class="form-label">(on strike)</label>
+                <select
+                  name="first_batsman"
+                  id="first_batsman"
+                  class="form-select"
+                >
+                  <option value="">--Select--</option>
+                  <option value="Hammad">Hammad</option>
+                  <option value="Ahsan">Ahsan</option>
+                  <option value="syed_haider">Syed Haider</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <label for="" class="form-label">Score</label>
+              <p id="batsman1-score">0</p>
+            </div>
+            <div class="col-md-2">
+              <label for="" class="form-label">Balls</label>
+              <p id="batsman1-balls">0</p>
+            </div>
+            <div class="col-md-2">
+              <label for="" class="form-label">4s</label>
+              <p id="batsman1-4s">0</p>
+            </div>
+            <div class="col-md-2">
+              <label for="" class="form-label">6s</label>
+              <p id="batsman1-6s">0</p>
+            </div>
+            <div class="col-md-2">
+              <label for="" class="form-label">SR</label>
+              <p id="batsman1-sr">0</p>
+            </div>
+          </div>
+
+          <div class="row my-2 text-center" id="batsman2-info">
+            <div class="col-md-2">
+              <div class="form-group">
+                <label for="" class="form-label"></label>
+                <select
+                  name="second_batsman"
+                  id="second_batsman"
+                  class="form-select"
+                >
+                  <option value="">--Select--</option>
+                  <option value="Hammad">Hammad</option>
+                  <option value="Ahsan">Ahsan</option>
+                  <option value="syed_haider">Syed Haider</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <label for="" class="form-label">Score</label>
+              <p id="batsman2-score">0</p>
+            </div>
+            <div class="col-md-2">
+              <label for="" class="form-label">Balls</label>
+              <p id="batsman2-balls">0</p>
+            </div>
+            <div class="col-md-2">
+              <label for="" class="form-label">4s</label>
+              <p id="batsman2-4s">0</p>
+            </div>
+            <div class="col-md-2">
+              <label for="" class="form-label">6s</label>
+              <p id="batsman2-6s">0</p>
+            </div>
+            <div class="col-md-2">
+              <label for="" class="form-label">SR</label>
+              <p id="batsman2-sr">0</p>
+            </div>
+          </div>
+        </div>
+
+        <p class="my-4 fs-4">Extras: <span id="extras">0</span></p>
+
+        <div class="my-5">
+          <p>Bowler Info</p>
+          <div class="row my-2 text-center">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="bowler_info" class="form-label"></label>
+                <select name="bowler_info" id="bowler_info" class="form-select">
+                  <option value="">--Select--</option>
+                  <option value="Haider">Haider</option>
+                  <option value="Hassan">Hassan</option>
+                  <option value="Hammad 2.0">Hammad 2.0</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-8">
+              <p class="text-start mb-2">Bowling Performance:</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div>
+                  <label for="" class="form-label">Overs</label>
+                  <p id="bowler-overs">0</p>
+                </div>
+                <div>
+                  <label for="" class="form-label">Maiden</label>
+                  <p id="bowler-maiden">0</p>
+                </div>
+                <div>
+                  <label for="" class="form-label">Runs</label>
+                  <p id="bowler-runs">0</p>
+                </div>
+                <div>
+                  <label for="" class="form-label">Wicket</label>
+                  <p id="bowler-wickets">0</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="my-5">
+          <p class="mb-2">Manage Scoreboard:</p>
+          <button class="btn btn-primary" onclick="updateScore(0)">0</button>
+          <button class="btn btn-primary" onclick="updateScore(1)">1</button>
+          <button class="btn btn-primary" onclick="updateScore(2)">2</button>
+          <button class="btn btn-primary" onclick="updateScore(3)">3</button>
+          <button class="btn btn-primary" onclick="updateScore(4)">4</button>
+          <button class="btn btn-primary" onclick="updateScore(5)">5</button>
+          <button class="btn btn-primary" onclick="updateScore(6)">6</button>
+          <!-- <button class="btn btn-primary" onclick="updateScore('wide')">
+            Wide
+          </button> -->
+          <button
+            class="btn btn-primary"
+            id="wideModalBtn"
+            data-bs-toggle="modal"
+            data-bs-target="#wideModal"
+          >
+            Wide
+          </button>
+          <!-- <button class="btn btn-primary" onclick="updateScore('no-ball')">
+            No Ball
+          </button> -->
+          <button
+            class="btn btn-primary"
+            id="noBallModalBtn"
+            data-bs-toggle="modal"
+            data-bs-target="#noBallModal"
+          >
+            No Ball
+          </button>
+          <!-- <button class="btn btn-primary" onclick="updateScore('wicket')">
+            Wicket
+          </button> -->
+          <button
+            class="btn btn-primary"
+            id="wicketModalBtn"
+            onclick="displayWicket()"
+          >
+            Wicket
+          </button>
+        </div>
+      </div>
+      <!-- main body end -->
+
+      <div class="footer">
+        <div class="text-center">
+          Powered by
+          <a href="https://www.primebpo.com/" target="_blank" class="fw-bold"
+            >Prime BPO</a
+          >
+        </div>
+      </div>
+    </div>
+    <!-- score board code end  -->
+
+    <!--Wide Modal -->
+    <div
+      class="modal fade"
+      id="wideModal"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="wideModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="wideModalLabel">Wide Ball</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p>Wide ball detected. Add to extras:</p>
+            <button
+              class="btn btn-primary m-2"
+              onclick="addWideExtra(1,'runs')"
+            >
+              1 Extra
+            </button>
+            <button
+              class="btn btn-primary m-2"
+              onclick="addWideExtra(2,'runs')"
+            >
+              2 Extras
+            </button>
+            <button
+              class="btn btn-primary m-2"
+              onclick="addWideExtra(3,'runs')"
+            >
+              3 Extras
+            </button>
+            <button
+              class="btn btn-primary m-2"
+              onclick="addWideExtra(4,'runs')"
+            >
+              4 Extras
+            </button>
+            <button
+              class="btn btn-primary m-2"
+              onclick="addWideExtra(5,'runs')"
+            >
+              5 Extras
+            </button>
+            <p class="text-danger">Wicket on Wide Ball:</p>
+
+            <button
+              class="btn btn-primary m-2"
+              onclick="addWideExtra(1,'wickets')"
+            >
+              1 Extra + Wicket
+            </button>
+
+            <button
+              class="btn btn-primary m-2"
+              onclick="addWideExtra(2,'wickets')"
+            >
+              2 Extra + Wicket
+            </button>
+
+            <button
+              class="btn btn-primary m-2"
+              onclick="addWideExtra(3,'wickets')"
+            >
+              3 Extra + Wicket
+            </button>
+
+            <button
+              class="btn btn-primary m-2"
+              onclick="addWideExtra(4,'wickets')"
+            >
+              4 Extra + Wicket
+            </button>
+
+            <div id="selectContainer" style="display: none">
+              <div class="form-group">
+                <label for="wideBatsmanOut">Batsman Out:</label>
+                <select class="form-select" id="wideBatsmanOut"></select>
+              </div>
+              <div>
+                <label for="outBy">Wicket By:</label>
+                <select class="form-select" id="outBy">
+                  <option value="run_out">Run Out</option>
+                  <option value="stumped">Stumped</option>
+                </select>
+              </div>
+
+              <button
+                class="btn btn-primary mt-3"
+                onclick="confirmWideWicket()"
+              >
+                Confirm
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- No Ball Modal -->
+    <div
+      class="modal fade"
+      id="noBallModal"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="noBallModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="noBallModalLabel">No Ball</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p>No ball detected. Add runs scored off the no ball:</p>
+            <p class="text-danger">
+              if there is no Run. Click on zero it add one run in Extra only
+            </p>
+            <button
+              class="btn btn-primary m-2"
+              onclick="addNoBallExtra(0,'runs')"
+            >
+              0 Run
+            </button>
+            <button
+              class="btn btn-primary m-2"
+              onclick="addNoBallExtra(1,'runs')"
+            >
+              1 Run
+            </button>
+            <button
+              class="btn btn-primary m-2"
+              onclick="addNoBallExtra(2,'runs')"
+            >
+              2 Runs
+            </button>
+            <button
+              class="btn btn-primary m-2"
+              onclick="addNoBallExtra(3,'runs')"
+            >
+              3 Runs
+            </button>
+            <button
+              class="btn btn-primary m-2"
+              onclick="addNoBallExtra(4,'runs')"
+            >
+              4 Runs
+            </button>
+            <button
+              class="btn btn-primary m-2"
+              onclick="addNoBallExtra(5,'runs')"
+            >
+              5 Runs
+            </button>
+            <button
+              class="btn btn-primary m-2"
+              onclick="addNoBallExtra(6,'runs')"
+            >
+              6 Runs
+            </button>
+            <p class="text-danger">Wicket on No Ball:</p>
+            <button
+              class="btn btn-primary m-2"
+              onclick="addNoBallExtra(0,'wicket')"
+            >
+              0 Extra + Wicket
+            </button>
+            <button
+              class="btn btn-primary m-2"
+              onclick="addNoBallExtra(1,'wicket')"
+            >
+              1 Extra + Wicket
+            </button>
+            <button
+              class="btn btn-primary m-2"
+              onclick="addNoBallExtra(2,'wicket')"
+            >
+              2 Extra + Wicket
+            </button>
+            <button
+              class="btn btn-primary m-2"
+              onclick="addNoBallExtra(3,'wicket')"
+            >
+              3 Extra + Wicket
+            </button>
+            <button
+              class="btn btn-primary m-2"
+              onclick="addNoBallExtra(4,'wicket')"
+            >
+              4 Extra + Wicket
+            </button>
+            <div id="selectNoBallContainer" style="display: none">
+              <div class="form-group">
+                <label for="noBallBatsmanOut">Batsman Out:</label>
+                <select class="form-select" id="noBallBatsmanOut"></select>
+              </div>
+              <div>
+                <label for="outBy">Wicket By:</label>
+                <select class="form-select" id="outBy">
+                  <option value="run_out">Run Out</option>
+                </select>
+              </div>
+
+              <button
+                class="btn btn-primary mt-3"
+                onclick="confirmNoBallWicket()"
+              >
+                Confirm
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Wicket Modal -->
+    <div
+      class="modal fade"
+      id="wicketModal"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="wicketModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="wicketModalLabel">Wicket</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p>Select the type of wicket and the batsman who got out:</p>
+            <div class="form-group">
+              <label for="wicketType">Wicket Type:</label>
+              <select class="form-select" id="wicketType">
+                <option value="bowled">Bowled</option>
+                <option value="caught">Caught</option>
+                <option value="runout">Run Out</option>
+                <option value="stumped">Stumped</option>
+                <option value="hitwicket">Hit Wicket</option>
+              </select>
+            </div>
+            <div id="caughtDetails" class="form-group" style="display: none">
+              <label for="caughtBy">Caught By:</label>
+              <select class="form-select" id="caughtBy">
+                <option value="fielder">Fielder</option>
+                <option value="wicketkeeper">Wicketkeeper</option>
+              </select>
+            </div>
+            <div id="RunDetails" class="form-group" style="display: none">
+              <p>Run On Run OUT:</p>
+              <button class="btn btn-primary" onclick="updateScore(0)">
+                0
+              </button>
+              <button class="btn btn-primary" onclick="updateScore(1)">
+                1
+              </button>
+              <button class="btn btn-primary" onclick="updateScore(2)">
+                2
+              </button>
+              <button class="btn btn-primary" onclick="updateScore(3)">
+                3
+              </button>
+            </div>
+            <div class="form-group">
+              <label for="batsmanOut">Batsman Out:</label>
+              <select class="form-select" id="batsmanOut"></select>
+            </div>
+            <button class="btn btn-primary mt-3" onclick="confirmWicket()">
+              Confirm
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Match End Modal -->
+    <div
+      class="modal fade"
+      id="matchEnd"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="matchEndLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="text-center">
+              <h5 class="fw-bold fs-3 my-4" id="matchEndLabel">Match End</h5>
+              <p class="fs-5">Check the Score Card of the Match</p>
+
+              <a class="btn btn-primary mt-3" href="../scoreboard.html">
+                Go To ScoreBoard
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- jquery  -->
+    <script src="../assets/libs/jquery/jquery.min.js"></script>
+
+    <!-- bootstrap js  -->
+    <script src="../assets/libs/bootstrap/js/bootstrap.min.js"></script>
+
+    <script src="../assets/js/score.js"></script>
+  </body>
+</html>
